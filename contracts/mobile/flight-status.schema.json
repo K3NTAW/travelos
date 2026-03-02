@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FlightStatus",
+  "type": "object",
+  "required": ["flightNumber", "status", "officialDeparture", "predictedDeparture", "countdown"],
+  "properties": {
+    "flightNumber": { "type": "string" },
+    "status": { "type": "string", "enum": ["on_time", "delayed", "boarding"] },
+    "officialDeparture": { "type": "string" },
+    "predictedDeparture": { "type": "string" },
+    "countdown": { "type": "string" },
+    "delayReason": { "type": "string" }
+  }
+}

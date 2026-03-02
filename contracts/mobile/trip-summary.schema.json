@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TripSummary",
+  "type": "object",
+  "required": ["id", "travelerName", "destination", "dateRange", "riskScore"],
+  "properties": {
+    "id": { "type": "string" },
+    "travelerName": { "type": "string" },
+    "destination": { "type": "string" },
+    "dateRange": { "type": "string" },
+    "riskScore": { "type": "integer", "minimum": 0, "maximum": 100 }
+  }
+}

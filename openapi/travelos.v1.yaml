@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  title: TravelOS API
+  version: 1.0.0
+servers:
+  - url: https://api.travelos.com
+paths:
+  /v1/trips:
+    get:
+      summary: List trips for workspace
+      responses:
+        "200":
+          description: Trip list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Trip"
+  /v1/itinerary/optimize:
+    post:
+      summary: Optimize itinerary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItineraryRequest"
+      responses:
+        "200":
+          description: Optimization output
+  /v1/affiliate/click:
+    post:
+      summary: Track affiliate redirect
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AffiliateClick"
+      responses:
+        "200":
+          description: Redirect payload
+components:
+  schemas:
+    Trip:
+      type: object
+      required: [id, travelerName, destination, dateRange, riskScore]
+      properties:
+        id:
+          type: string
+        travelerName:
+          type: string
+        destination:
+          type: string
+        dateRange:
+          type: string
+        riskScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+    ItineraryRequest:
+      type: object
+      required: [tripId, prompt, optimizeFor]
+      properties:
+        tripId:
+          type: string
+        prompt:
+          type: string
+        optimizeFor:
+          type: string
+          enum: [time, budget, comfort]
+    AffiliateClick:
+      type: object
+      required: [tripId, provider, targetUrl]
+      properties:
+        tripId:
+          type: string
+        provider:
+          type: string
+          enum: [booking, expedia, kiwi]
+        targetUrl:
+          type: string
+          format: uri
